@@ -169,3 +169,21 @@ Wan2.1 首尾帧视频效果可参考：[音乐都能当编程语言了？来听
 但测试发现，如果生成太长的视频有可能会出现一些奇怪的情况，建议不要生成一分钟以上的视频。
 
 [**效果视频**](doc/civilization.mp4)（使用上面的音频，加上一个绿幕铃兰图像生成）
+
+## 使用本项目
+
+- 克隆项目到本地
+- 安装依赖（使用 `uv sync` 安装）
+- 修改配置（将 `.env.example` 复制为 `.env`，并修改其中的配置）
+- 运行项目（使用 `uv run src/main.py` 运行项目）
+
+### 工作流管理
+
++ `python -m src.main workflow list`: 列出所有工作流
++ `python -m src.main workflow export`: 导出工作流到备份目录
++ `python -m src.main workflow import`: 导入备份目录的工作流
++ `python -m src.main workflow info XXX`: 查看工作流 XXX 引用的模型，含 VAE、LoRA（可能包含干扰项）
+
+### 模型管理
+
++ `python -m src.main model scan`: 扫描模型目录，列出所有模型文件，并在通过控制台确认后删除未引用的模型文件，你有机会多次确认

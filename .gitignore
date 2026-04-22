@@ -1,0 +1,6 @@
+.env
+.venv/
+.claude/
+private/
+
+__pycache__/
