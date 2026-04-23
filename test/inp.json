@@ -1,0 +1,827 @@
+{
+  "nodes": [
+    {
+      "id": 17,
+      "type": "CLIPTextEncode",
+      "pos": [-330.26659602247037, 152.79411774801724],
+      "size": [502.5666809082031, 121.03334045410156],
+      "flags": {},
+      "order": 11,
+      "mode": 0,
+      "inputs": [
+        {
+          "label": "clip",
+          "localized_name": "clip",
+          "name": "clip",
+          "type": "CLIP",
+          "link": 66
+        },
+        {
+          "label": "text",
+          "localized_name": "文本",
+          "name": "text",
+          "type": "STRING",
+          "widget": { "name": "text" },
+          "link": 35
+        }
+      ],
+      "outputs": [
+        {
+          "label": "CONDITIONING",
+          "localized_name": "条件",
+          "name": "CONDITIONING",
+          "type": "CONDITIONING",
+          "links": [19]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.3.30",
+        "Node name for S&R": "CLIPTextEncode"
+      },
+      "widgets_values": ["Nahida"]
+    },
+    {
+      "id": 7,
+      "type": "CLIPTextEncode",
+      "pos": [-393.59193117351697, 604.4045229853657],
+      "size": [510.3333435058594, 121.03334045410156],
+      "flags": {},
+      "order": 13,
+      "mode": 0,
+      "inputs": [
+        {
+          "label": "clip",
+          "localized_name": "clip",
+          "name": "clip",
+          "type": "CLIP",
+          "link": 5
+        },
+        {
+          "label": "text",
+          "localized_name": "文本",
+          "name": "text",
+          "type": "STRING",
+          "widget": { "name": "text" },
+          "link": 39
+        }
+      ],
+      "outputs": [
+        {
+          "label": "CONDITIONING",
+          "localized_name": "条件",
+          "name": "CONDITIONING",
+          "type": "CONDITIONING",
+          "slot_index": 0,
+          "links": [60]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.3.30",
+        "Node name for S&R": "CLIPTextEncode"
+      },
+      "widgets_values": ["embedding:easynegative"]
+    },
+    {
+      "id": 8,
+      "type": "VAEDecode",
+      "pos": [800.8043585158675, 376.1971622499275],
+      "size": [252, 71.46666717529297],
+      "flags": {},
+      "order": 16,
+      "mode": 0,
+      "inputs": [
+        {
+          "label": "samples",
+          "localized_name": "Latent",
+          "name": "samples",
+          "type": "LATENT",
+          "link": 7
+        },
+        {
+          "label": "vae",
+          "localized_name": "vae",
+          "name": "vae",
+          "type": "VAE",
+          "link": 83
+        }
+      ],
+      "outputs": [
+        {
+          "label": "IMAGE",
+          "localized_name": "图像",
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "slot_index": 0,
+          "links": [9]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.3.30",
+        "Node name for S&R": "VAEDecode"
+      },
+      "widgets_values": []
+    },
+    {
+      "id": 34,
+      "type": "Display Any (rgthree)",
+      "pos": [-564.3514203782588, 1186.6529114717773],
+      "size": [877.1500244140625, 121.03334045410156],
+      "flags": {},
+      "order": 14,
+      "mode": 0,
+      "inputs": [
+        {
+          "label": "source",
+          "localized_name": "source",
+          "name": "source",
+          "type": "*",
+          "link": 42
+        }
+      ],
+      "outputs": [],
+      "properties": {
+        "cnr_id": "rgthree-comfy",
+        "ver": "1.0.0",
+        "Node name for S&R": "Display Any (rgthree)"
+      },
+      "widgets_values": [
+        "embedding:unaestheticXL_Sky3.1, embedding:BadX-neg, embedding:DeepNegative_xl_v1, realistic, mosaic, mosaic, audit, multiple grils, weird, weird color, incomplete body, text, logo, "
+      ]
+    },
+    {
+      "id": 53,
+      "type": "MarkdownNote",
+      "pos": [-1168.7818692304118, 367.91735334138525],
+      "size": [400.0666809082031, 294.0333251953125],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "properties": {},
+      "widgets_values": [
+        "# 常见尺寸\n\n- 1:1（正方形）：1024x1024、768x768\n- 3:2（横向）：1152x768\n- 2:3（纵向）：768x1152\n- 4:3（横向）：1152x864\n- 3:4（纵向）：864x1152\n- 16:9（宽屏）：1360x768\n- 9:16（竖屏）：768x1360"
+      ],
+      "color": "#432",
+      "bgcolor": "#653"
+    },
+    {
+      "id": 50,
+      "type": "easy promptConcat",
+      "pos": [-1861.0193017731553, 782.3193887403465],
+      "size": [324, 107.46665954589844],
+      "flags": {},
+      "order": 9,
+      "mode": 0,
+      "inputs": [
+        {
+          "label": "prompt1",
+          "localized_name": "提示词1",
+          "name": "prompt1",
+          "shape": 7,
+          "type": "STRING",
+          "link": 80
+        },
+        {
+          "label": "prompt2",
+          "localized_name": "提示词2",
+          "name": "prompt2",
+          "shape": 7,
+          "type": "STRING",
+          "link": 67
+        },
+        {
+          "label": "separator",
+          "localized_name": "间隔符",
+          "name": "separator",
+          "shape": 7,
+          "type": "STRING",
+          "widget": { "name": "separator" },
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "label": "prompt",
+          "localized_name": "提示词",
+          "name": "prompt",
+          "type": "STRING",
+          "links": [69]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfyui-easy-use",
+        "ver": "1.2.9",
+        "Node name for S&R": "easy promptConcat"
+      },
+      "widgets_values": [", "],
+      "color": "#233",
+      "bgcolor": "#355"
+    },
+    {
+      "id": 3,
+      "type": "KSampler",
+      "pos": [274.6235458587289, 85.6864223644975],
+      "size": [378, 316.79998779296875],
+      "flags": {},
+      "order": 15,
+      "mode": 0,
+      "inputs": [
+        {
+          "label": "model",
+          "localized_name": "模型",
+          "name": "model",
+          "type": "MODEL",
+          "link": 65
+        },
+        {
+          "label": "positive",
+          "localized_name": "正面条件",
+          "name": "positive",
+          "type": "CONDITIONING",
+          "link": 19
+        },
+        {
+          "label": "negative",
+          "localized_name": "负面条件",
+          "name": "negative",
+          "type": "CONDITIONING",
+          "link": 60
+        },
+        {
+          "label": "latent_image",
+          "localized_name": "Latent图像",
+          "name": "latent_image",
+          "type": "LATENT",
+          "link": 2
+        },
+        {
+          "label": "seed",
+          "localized_name": "种子",
+          "name": "seed",
+          "type": "INT",
+          "widget": { "name": "seed" },
+          "link": null
+        },
+        {
+          "label": "steps",
+          "localized_name": "步数",
+          "name": "steps",
+          "type": "INT",
+          "widget": { "name": "steps" },
+          "link": null
+        },
+        {
+          "label": "cfg",
+          "localized_name": "cfg",
+          "name": "cfg",
+          "type": "FLOAT",
+          "widget": { "name": "cfg" },
+          "link": null
+        },
+        {
+          "label": "sampler_name",
+          "localized_name": "采样器名称",
+          "name": "sampler_name",
+          "type": "COMBO",
+          "widget": { "name": "sampler_name" },
+          "link": null
+        },
+        {
+          "label": "scheduler",
+          "localized_name": "调度器",
+          "name": "scheduler",
+          "type": "COMBO",
+          "widget": { "name": "scheduler" },
+          "link": null
+        },
+        {
+          "label": "denoise",
+          "localized_name": "降噪",
+          "name": "denoise",
+          "type": "FLOAT",
+          "widget": { "name": "denoise" },
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "label": "LATENT",
+          "localized_name": "Latent",
+          "name": "LATENT",
+          "type": "LATENT",
+          "slot_index": 0,
+          "links": [7]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.3.30",
+        "Node name for S&R": "KSampler"
+      },
+      "widgets_values": [
+        456208738234862,
+        "randomize",
+        25,
+        7.5,
+        "euler_ancestral",
+        "karras",
+        1
+      ]
+    },
+    {
+      "id": 52,
+      "type": "VAELoader",
+      "pos": [361.81773029154283, 752.8288455956358],
+      "size": [324, 82.13333129882812],
+      "flags": { "collapsed": false },
+      "order": 1,
+      "mode": 4,
+      "inputs": [
+        {
+          "label": "vae_name",
+          "localized_name": "vae名称",
+          "name": "vae_name",
+          "type": "COMBO",
+          "widget": { "name": "vae_name" },
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "label": "VAE",
+          "localized_name": "VAE",
+          "name": "VAE",
+          "type": "VAE",
+          "links": []
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.3.30",
+        "Node name for S&R": "VAELoader"
+      },
+      "widgets_values": ["SDXL\\sdxl_vae.safetensors"]
+    },
+    {
+      "id": 33,
+      "type": "easy negative",
+      "pos": [-1853.4549556510656, 999.9469780505842],
+      "size": [480, 121.03334045410156],
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "inputs": [
+        {
+          "label": "negative",
+          "localized_name": "negative",
+          "name": "negative",
+          "type": "STRING",
+          "widget": { "name": "negative" },
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "label": "negative",
+          "localized_name": "负面提示词",
+          "name": "negative",
+          "type": "STRING",
+          "links": [41]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfyui-easy-use",
+        "ver": "1.2.9",
+        "Node name for S&R": "easy negative"
+      },
+      "widgets_values": [
+        "embedding:unaestheticXL_Sky3.1, embedding:BadX-neg, embedding:DeepNegative_xl_v1, realistic, mosaic, mosaic, audit, multiple grils, weird, weird color, incomplete body, text, logo, "
+      ],
+      "color": "#322",
+      "bgcolor": "#533"
+    },
+    {
+      "id": 48,
+      "type": "LoraLoader",
+      "pos": [-704.1894408653843, 127.29013886456232],
+      "size": [324, 170.13333129882812],
+      "flags": {},
+      "order": 7,
+      "mode": 0,
+      "inputs": [
+        {
+          "label": "model",
+          "localized_name": "模型",
+          "name": "model",
+          "type": "MODEL",
+          "link": 56
+        },
+        {
+          "label": "clip",
+          "localized_name": "CLIP",
+          "name": "clip",
+          "type": "CLIP",
+          "link": 57
+        },
+        {
+          "label": "lora_name",
+          "localized_name": "LoRA名称",
+          "name": "lora_name",
+          "type": "COMBO",
+          "widget": { "name": "lora_name" },
+          "link": null
+        },
+        {
+          "label": "strength_model",
+          "localized_name": "模型强度",
+          "name": "strength_model",
+          "type": "FLOAT",
+          "widget": { "name": "strength_model" },
+          "link": null
+        },
+        {
+          "label": "strength_clip",
+          "localized_name": "CLIP强度",
+          "name": "strength_clip",
+          "type": "FLOAT",
+          "widget": { "name": "strength_clip" },
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "label": "MODEL",
+          "localized_name": "模型",
+          "name": "MODEL",
+          "type": "MODEL",
+          "links": [65]
+        },
+        {
+          "label": "CLIP",
+          "localized_name": "CLIP",
+          "name": "CLIP",
+          "type": "CLIP",
+          "links": [66]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.3.30",
+        "Node name for S&R": "LoraLoader"
+      },
+      "widgets_values": [
+        "add-detail-xl.safetensors",
+        0.7500000000000001,
+        0.7500000000000001
+      ]
+    },
+    {
+      "id": 4,
+      "type": "CheckpointLoaderSimple",
+      "pos": [-1250.5069045147266, 154.63410647848696],
+      "size": [378, 130.13333129882812],
+      "flags": {},
+      "order": 3,
+      "mode": 0,
+      "inputs": [
+        {
+          "label": "ckpt_name",
+          "localized_name": "Checkpoint名称",
+          "name": "ckpt_name",
+          "type": "COMBO",
+          "widget": { "name": "ckpt_name" },
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "label": "MODEL",
+          "localized_name": "模型",
+          "name": "MODEL",
+          "type": "MODEL",
+          "slot_index": 0,
+          "links": [56]
+        },
+        {
+          "label": "CLIP",
+          "localized_name": "CLIP",
+          "name": "CLIP",
+          "type": "CLIP",
+          "slot_index": 1,
+          "links": [5, 57]
+        },
+        {
+          "label": "VAE",
+          "localized_name": "VAE",
+          "name": "VAE",
+          "type": "VAE",
+          "slot_index": 2,
+          "links": [83]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.3.30",
+        "Node name for S&R": "CheckpointLoaderSimple"
+      },
+      "widgets_values": ["zukiAnimeILL_best.safetensors"]
+    },
+    {
+      "id": 26,
+      "type": "Display Any (rgthree)",
+      "pos": [-554.0787036819456, 909.992950900637],
+      "size": [848.7833251953125, 121.03334045410156],
+      "flags": {},
+      "order": 12,
+      "mode": 0,
+      "inputs": [
+        {
+          "label": "source",
+          "localized_name": "source",
+          "name": "source",
+          "type": "*",
+          "link": 36
+        }
+      ],
+      "outputs": [],
+      "properties": {
+        "cnr_id": "rgthree-comfy",
+        "ver": "1.0.0",
+        "Node name for S&R": "Display Any (rgthree)"
+      },
+      "widgets_values": [
+        "Arknights: Suzuran, Front View, 3D Model, Smiling, \"Song of Spring\" Outfit, Girly, green screen, masterpiece, best quality, amazing quality, 8k, "
+      ]
+    },
+    {
+      "id": 29,
+      "type": "easy stylesSelector",
+      "pos": [-1230.5126909798137, 689.3308873405156],
+      "size": [510, 2898.800048828125],
+      "flags": {},
+      "order": 10,
+      "mode": 0,
+      "inputs": [
+        {
+          "label": "positive",
+          "localized_name": "正面提示词（可选）",
+          "name": "positive",
+          "shape": 7,
+          "type": "STRING",
+          "link": 69
+        },
+        {
+          "label": "negative",
+          "localized_name": "负面提示词（可选）",
+          "name": "negative",
+          "shape": 7,
+          "type": "STRING",
+          "link": 41
+        },
+        {
+          "label": "styles",
+          "localized_name": "风格类型",
+          "name": "styles",
+          "type": "COMBO",
+          "widget": { "name": "styles" },
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "label": "positive",
+          "localized_name": "正面提示词",
+          "name": "positive",
+          "type": "STRING",
+          "links": [35, 36]
+        },
+        {
+          "label": "negative",
+          "localized_name": "负面提示词",
+          "name": "negative",
+          "type": "STRING",
+          "links": [39, 42]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfyui-easy-use",
+        "ver": "1.2.9",
+        "Node name for S&R": "easy stylesSelector",
+        "values": []
+      },
+      "widgets_values": ["fooocus_styles", ""]
+    },
+    {
+      "id": 49,
+      "type": "easy positive",
+      "pos": [-2631.726160395908, 951.9479137119974],
+      "size": [480, 121.03334045410156],
+      "flags": {},
+      "order": 4,
+      "mode": 0,
+      "inputs": [
+        {
+          "label": "positive",
+          "localized_name": "positive",
+          "name": "positive",
+          "type": "STRING",
+          "widget": { "name": "positive" },
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "label": "positive",
+          "localized_name": "正面提示词",
+          "name": "positive",
+          "type": "STRING",
+          "links": [67]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfyui-easy-use",
+        "ver": "1.2.9",
+        "Node name for S&R": "easy positive"
+      },
+      "widgets_values": ["masterpiece, best quality, amazing quality, 8k, "],
+      "color": "#232",
+      "bgcolor": "#353"
+    },
+    {
+      "id": 9,
+      "type": "SaveImage",
+      "pos": [1184.0288746826636, 372.8749629750714],
+      "size": [577.433349609375, 463.5666809082031],
+      "flags": {},
+      "order": 17,
+      "mode": 0,
+      "inputs": [
+        {
+          "label": "images",
+          "localized_name": "图片",
+          "name": "images",
+          "type": "IMAGE",
+          "link": 9
+        },
+        {
+          "label": "filename_prefix",
+          "localized_name": "文件名前缀",
+          "name": "filename_prefix",
+          "type": "STRING",
+          "widget": { "name": "filename_prefix" },
+          "link": null
+        }
+      ],
+      "outputs": [],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.3.30",
+        "Node name for S&R": "SaveImage"
+      },
+      "widgets_values": ["ComfyUI"]
+    },
+    {
+      "id": 5,
+      "type": "EmptyLatentImage",
+      "pos": [-273.8920590500247, 383.09704979990306],
+      "size": [378, 143.46665954589844],
+      "flags": {},
+      "order": 5,
+      "mode": 0,
+      "inputs": [
+        {
+          "label": "width",
+          "localized_name": "宽度",
+          "name": "width",
+          "type": "INT",
+          "widget": { "name": "width" },
+          "link": null
+        },
+        {
+          "label": "height",
+          "localized_name": "高度",
+          "name": "height",
+          "type": "INT",
+          "widget": { "name": "height" },
+          "link": null
+        },
+        {
+          "label": "batch_size",
+          "localized_name": "批量大小",
+          "name": "batch_size",
+          "type": "INT",
+          "widget": { "name": "batch_size" },
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "label": "LATENT",
+          "localized_name": "Latent",
+          "name": "LATENT",
+          "type": "LATENT",
+          "slot_index": 0,
+          "links": [2]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.3.30",
+        "Node name for S&R": "EmptyLatentImage"
+      },
+      "widgets_values": [1024, 1024, 4]
+    },
+    {
+      "id": 57,
+      "type": "easy textSwitch",
+      "pos": [-2126.8948189617404, 745.9289580456602],
+      "size": [225, 103.46665954589844],
+      "flags": {},
+      "order": 8,
+      "mode": 0,
+      "inputs": [
+        {
+          "label": "text1",
+          "localized_name": "文本_1",
+          "name": "text1",
+          "shape": 7,
+          "type": "STRING",
+          "link": 82
+        },
+        {
+          "label": "text2",
+          "localized_name": "文本_2",
+          "name": "text2",
+          "shape": 7,
+          "type": "STRING",
+          "link": null
+        },
+        {
+          "label": "input",
+          "localized_name": "输入",
+          "name": "input",
+          "type": "INT",
+          "widget": { "name": "input" },
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "label": "STRING",
+          "localized_name": "字符串",
+          "name": "STRING",
+          "type": "STRING",
+          "links": [80]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfyui-easy-use",
+        "ver": "1.2.9",
+        "Node name for S&R": "easy textSwitch"
+      },
+      "widgets_values": [1]
+    },
+    {
+      "id": 58,
+      "type": "easy positive",
+      "pos": [-2634.6621783008477, 748.0017090139152],
+      "size": [444.26666259765625, 121.03334045410156],
+      "flags": {},
+      "order": 6,
+      "mode": 0,
+      "inputs": [
+        {
+          "label": "positive",
+          "localized_name": "positive",
+          "name": "positive",
+          "type": "STRING",
+          "widget": { "name": "positive" },
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "label": "positive",
+          "localized_name": "正面提示词",
+          "name": "positive",
+          "type": "STRING",
+          "links": [82]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfyui-easy-use",
+        "ver": "1.2.9",
+        "Node name for S&R": "easy positive"
+      },
+      "widgets_values": [
+        "Arknights: Suzuran, Front View, 3D Model, Smiling, \"Song of Spring\" Outfit, Girly, green screen"
+      ],
+      "color": "#232",
+      "bgcolor": "#353"
+    }
+  ]
+}

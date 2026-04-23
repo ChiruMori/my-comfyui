@@ -1,0 +1,185 @@
+{
+  "3": {
+    "inputs": {
+      "seed": 456208738234862,
+      "steps": 25,
+      "cfg": 7.5,
+      "sampler_name": "euler_ancestral",
+      "scheduler": "karras",
+      "denoise": 1,
+      "model": [
+        "48",
+        0
+      ],
+      "positive": [
+        "17",
+        0
+      ],
+      "negative": [
+        "7",
+        0
+      ],
+      "latent_image": [
+        "5",
+        0
+      ]
+    },
+    "class_type": "KSampler"
+  },
+  "4": {
+    "inputs": {
+      "ckpt_name": "zukiAnimeILL_best.safetensors"
+    },
+    "class_type": "CheckpointLoaderSimple"
+  },
+  "5": {
+    "inputs": {
+      "width": 1024,
+      "height": 1024,
+      "batch_size": 4
+    },
+    "class_type": "EmptyLatentImage"
+  },
+  "7": {
+    "inputs": {
+      "text": [
+        "29",
+        1
+      ],
+      "clip": [
+        "4",
+        1
+      ]
+    },
+    "class_type": "CLIPTextEncode"
+  },
+  "8": {
+    "inputs": {
+      "samples": [
+        "3",
+        0
+      ],
+      "vae": [
+        "4",
+        2
+      ]
+    },
+    "class_type": "VAEDecode"
+  },
+  "9": {
+    "inputs": {
+      "filename_prefix": "ComfyUI",
+      "images": [
+        "8",
+        0
+      ]
+    },
+    "class_type": "SaveImage"
+  },
+  "17": {
+    "inputs": {
+      "text": [
+        "29",
+        0
+      ],
+      "clip": [
+        "48",
+        1
+      ]
+    },
+    "class_type": "CLIPTextEncode"
+  },
+  "26": {
+    "inputs": {
+      "output": "",
+      "source": [
+        "29",
+        0
+      ]
+    },
+    "class_type": "Display Any (rgthree)"
+  },
+  "29": {
+    "inputs": {
+      "styles": "fooocus_styles",
+      "select_styles": "",
+      "positive": [
+        "50",
+        0
+      ],
+      "negative": [
+        "33",
+        0
+      ]
+    },
+    "class_type": "easy stylesSelector"
+  },
+  "33": {
+    "inputs": {
+      "negative": "embedding:unaestheticXL_Sky3.1, embedding:BadX-neg, embedding:DeepNegative_xl_v1, realistic, mosaic, mosaic, audit, multiple grils, weird, weird color, incomplete body, text, logo, "
+    },
+    "class_type": "easy negative"
+  },
+  "34": {
+    "inputs": {
+      "output": "",
+      "source": [
+        "29",
+        1
+      ]
+    },
+    "class_type": "Display Any (rgthree)"
+  },
+  "48": {
+    "inputs": {
+      "lora_name": "add-detail-xl.safetensors",
+      "strength_model": 0.7500000000000001,
+      "strength_clip": 0.7500000000000001,
+      "model": [
+        "4",
+        0
+      ],
+      "clip": [
+        "4",
+        1
+      ]
+    },
+    "class_type": "LoraLoader"
+  },
+  "49": {
+    "inputs": {
+      "positive": "masterpiece, best quality, amazing quality, 8k, "
+    },
+    "class_type": "easy positive"
+  },
+  "50": {
+    "inputs": {
+      "separator": ", ",
+      "prompt1": [
+        "57",
+        0
+      ],
+      "prompt2": [
+        "49",
+        0
+      ]
+    },
+    "class_type": "easy promptConcat"
+  },
+  "57": {
+    "inputs": {
+      "input": 1,
+      "text1": [
+        "58",
+        0
+      ]
+    },
+    "class_type": "easy textSwitch"
+  },
+  "58": {
+    "inputs": {
+      "positive": "Arknights: Suzuran, Front View, 3D Model, Smiling, \"Song of Spring\" Outfit, Girly, green screen"
+    },
+    "class_type": "easy positive"
+  }
+}
