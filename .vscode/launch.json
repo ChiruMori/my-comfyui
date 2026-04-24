@@ -12,13 +12,10 @@
             "console": "integratedTerminal"
         },
         {
-            "name": "Server",
+            "name": "Module",
             "type": "debugpy",
             "request": "launch",
-            "module": "src.main",
-            "args": [
-                "server",
-            ]
+            "module": "src.mcp.server"
         },
         {
             "name": "主程序",
@@ -26,8 +23,7 @@
             "request": "launch",
             "module": "src.main",
             "args": [
-                "workflow",
-                "export"
+                "mcp-server",
             ]
         }
     ]

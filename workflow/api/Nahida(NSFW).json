@@ -18,32 +18,38 @@
         "5",
         0
       ],
-      "seed": 13649405870722049083,
+      "seed": "{_SEED_}",
       "steps": 25,
-      "cfg": 6.5,
+      "cfg": 7.5,
       "sampler_name": "euler_ancestral",
       "scheduler": "karras",
       "denoise": 1
     }
   },
+  "4": {
+    "class_type": "CheckpointLoaderSimple",
+    "inputs": {
+      "ckpt_name": "zukiAnimeILL_best.safetensors"
+    }
+  },
   "5": {
     "class_type": "EmptyLatentImage",
     "inputs": {
-      "width": 640,
-      "height": 640,
-      "batch_size": 4
+      "width": {{width}},
+      "height": {{height}},
+      "batch_size": {{batch_size}}
     }
   },
   "7": {
     "class_type": "CLIPTextEncode",
     "inputs": {
       "clip": [
-        "51",
+        "4",
         1
       ],
       "text": [
-        "56",
-        1
+        "33",
+        0
       ]
     }
   },
@@ -55,8 +61,8 @@
         0
       ],
       "vae": [
-        "60",
-        0
+        "4",
+        2
       ]
     }
   },
@@ -70,20 +76,6 @@
       "filename_prefix": "ComfyUI"
     }
   },
-  "16": {
-    "class_type": "OllamaGenerate",
-    "inputs": {
-      "prompt": [
-        "40",
-        0
-      ],
-      "debug": "\n\n",
-      "url": "enable",
-      "model": "http://127.0.0.1:11434",
-      "keep_alive": 5,
-      "format": "text"
-    }
-  },
   "17": {
     "class_type": "CLIPTextEncode",
     "inputs": {
@@ -92,16 +84,7 @@
         1
       ],
       "text": [
-        "56",
-        0
-      ]
-    }
-  },
-  "26": {
-    "class_type": "Display Any (rgthree)",
-    "inputs": {
-      "source": [
-        "56",
+        "58",
         0
       ]
     }
@@ -109,155 +92,29 @@
   "33": {
     "class_type": "easy negative",
     "inputs": {
-      "negative": "embedding:unaestheticXL_Sky3.1, embedding:BadX-neg, embedding:DeepNegative_xl_v1, realistic, mosaic, mosaic, censored, audit, multiple grils, weird, weird color, incomplete body, two heads, robot, "
-    }
-  },
-  "34": {
-    "class_type": "Display Any (rgthree)",
-    "inputs": {
-      "source": [
-        "56",
-        1
-      ]
-    }
-  },
-  "40": {
-    "class_type": "easy promptConcat",
-    "inputs": {
-      "prompt1": [
-        "43",
-        0
-      ],
-      "prompt2": [
-        "64",
-        0
-      ],
-      "separator": " "
-    }
-  },
-  "43": {
-    "class_type": "easy positive",
-    "inputs": {
-      "positive": "接下来你的任务是生成描述图片的关键词列表，列表将作为提示词用于AIGC程序\n\n输出格式要求为英文关键字（词组）罗列，不要直接翻译；必须使用英文逗号分割，比如：word1, phrase, word2, short sentence, ...\n\n你作为自动程序的一部分，不要输出任何解释、说明、提醒、注意、markdown符号，以及任何其他符号，不要输出负面提示词\n\n本次要生成的画面描述如下：\n\n"
+      "negative": "embedding:unaestheticXL_Sky3.1, embedding:BadX-neg, embedding:DeepNegative_xl_v1, {{negative_prompt}}"
     }
   },
   "48": {
     "class_type": "LoraLoader",
     "inputs": {
       "model": [
-        "72",
+        "4",
         0
       ],
       "clip": [
-        "72",
+        "4",
         1
       ],
       "lora_name": "add-detail-xl.safetensors",
       "strength_model": 0.7500000000000001,
-      "strength_clip": 0.7600000000000001
+      "strength_clip": 0.7500000000000001
     }
   },
-  "49": {
+  "58": {
     "class_type": "easy positive",
     "inputs": {
-      "positive": "Nahida_(Genshin_Impact), cute, 1 girl, kawaii, lovely, loli"
-    }
-  },
-  "50": {
-    "class_type": "easy promptConcat",
-    "inputs": {
-      "prompt1": [
-        "49",
-        0
-      ],
-      "prompt2": [
-        "73",
-        0
-      ],
-      "separator": ", "
-    }
-  },
-  "51": {
-    "class_type": "CheckpointLoaderSimple",
-    "inputs": {
-      "ckpt_name": "zukiCuteILL_v60.safetensors"
-    }
-  },
-  "56": {
-    "class_type": "easy stylesSelector",
-    "inputs": {
-      "positive": [
-        "65",
-        0
-      ],
-      "negative": [
-        "33",
-        0
-      ],
-      "styles": "fooocus_styles"
-    }
-  },
-  "60": {
-    "class_type": "VAELoader",
-    "inputs": {
-      "vae_name": "sdxlVAE_sdxlVAE.safetensors"
-    }
-  },
-  "64": {
-    "class_type": "easy positive",
-    "inputs": {
-      "positive": "Nahida 在月光下的须弥城，弹奏西塔琴"
-    }
-  },
-  "65": {
-    "class_type": "easy promptReplace",
-    "inputs": {
-      "prompt": [
-        "50",
-        0
-      ],
-      "find1": "Nahida_(Genshin_Impact)",
-      "replace1": "Suzuran_(Arknights)",
-      "find2": "nahida",
-      "replace2": "Suzuran_(Arknights)",
-      "find3": "",
-      "replace3": ""
-    }
-  },
-  "68": {
-    "class_type": "easy positive",
-    "inputs": {
-      "positive": "Nahida plays the sita, moonlit city, Sumeru."
-    }
-  },
-  "72": {
-    "class_type": "LoraLoader",
-    "inputs": {
-      "model": [
-        "51",
-        0
-      ],
-      "clip": [
-        "51",
-        1
-      ],
-      "lora_name": "Better_detailed_pussy_and_anus_v3.0.safetensors",
-      "strength_model": 0.6600000000000001,
-      "strength_clip": 0.7600000000000001
-    }
-  },
-  "73": {
-    "class_type": "easy textSwitch",
-    "inputs": {
-      "text1": [
-        "68",
-        0
-      ],
-      "text2": [
-        "16",
-        0
-      ],
-      "input": 1
+      "positive": "{{prompt}}"
     }
   }
 }

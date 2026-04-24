@@ -1,0 +1,31 @@
+name: Nahida(NSFW)
+description: 动漫风格图像生成工作流，支持多种动漫模型和风格
+arg_schema:
+  type: object
+  properties:
+    prompt:
+      type: string
+      description: 正向提示词，描述希望生成的图像内容
+      example: "1girl, beautiful anime girl, solo, studio lighting"
+    negative_prompt:
+      type: string
+      description: 负向提示词，描述不希望出现在图像中的元素
+      example: "ugly, deformed, low quality, blur"
+    width:
+      type: integer
+      description: 图像宽度（像素）
+      minimum: 64
+      maximum: 8192
+      example: 1024
+    height:
+      type: integer
+      description: 图像高度（像素）
+      minimum: 64
+      maximum: 8192
+      example: 1024
+    batch_size:
+      type: integer
+      description: 批量生成数量
+      minimum: 1
+      maximum: 16
+      example: 4

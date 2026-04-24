@@ -3,7 +3,7 @@ import shutil
 import re
 from pathlib import Path
 from typing import Any, Dict, List
-from src.api.converter import convert_workflow_to_api
+from src.comfyui.converter import convert_workflow_to_api
 
 
 def list_workflows(workflows_dir: Path) -> List[Path]:

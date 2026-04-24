@@ -30,7 +30,7 @@ ComfyUI 的 API 调用需要提供工作流 json，本项目提供了一个 API 
 
 程序会将其转发给 ComfyUI 服务实现 ComfyUI 工作流的接口调用。
 
-注意，ComfyUI 并未提供 API 文档，本项目的实现均基于网页端的调用分析；
+注意，ComfyUI 并未提供 API 文档，本项目的实现均基于网页端的调用，以及 ComfyUI 代码分析，比如 [server.py](https://github.com/Comfy-Org/ComfyUI/blob/master/server.py)
 
 设计上仅适合调用一些简单的工作流，入参较少的情况，方便集成在 Agent 等场景中使用；
 
@@ -81,9 +81,32 @@ ComfyUI 的 API 调用需要提供工作流 json，本项目提供了一个 API 
     - 方案一（推荐）：修改工作流，去掉无法通过连线控制的参数，或者替换为其他可控的节点（如果有的话）
     - 方案二：手动在 ComfyUI 中导出 API 格式的工作流，替换程序生成的 json 文件中的参数值，并替换 seed 参数值为 `{_SEED_}` 后方可调用（SEED 相同 ComfyUI 会跳过执行），但每次导出都需要重新操作一遍
 
-### MCP/Skill 支持
+### MCP 支持
 
-TODO
+本项目提供了 MCP 服务实现（HTTP 方式），使 LLM/Agent 能够调用 ComfyUI 工作流。
+
+#### 使用方式
+
+![在 CherryStudio 中配置使用的效果图](doc/mcp.png)
+
+1. 完成 API 方式的所有步骤，因为 MCP 方式下，仍然需要使用 API 来调用 ComfyUI，所以所有的前置工作均需要。
+2. 为你要通过 MCP 使用的工作流创建 Schema 文件
+    1. Schema 文件必须与 `api` 目录中对应的文件同名，但使用 `yml` 格式
+    2. 在 yml 文件中，必须配置 `name`(工作流名称), `description`(工作流描述), `arg_schema`(参数 schema) 字段，`arg_schema` 是一个 JSON schema 对象，直接透传给 LLM/Agent，没有明确格式要求，描述清楚需要的参数要求即可。需要注意，参数名称必须与 `api` 中使用的参数名匹配，可以参考 `workflow/mcp/Nahida(NSFW).yml` 文件。
+
+    ![传参举例](doc/mcp_arg.png)
+
+3. 使用 `python -m src.main mcp-server` 启动 MCP 服务，监听端口为 `8181`（允许配置），目前不允许 MCP 服务与 API 服务同时启动，如有需要需自行修改。
+4. 在 LLM/Agent 中配置 MCP 服务，以 `HTTP` 方式连接，地址为 `http://localhost:8181`。
+5. 连接成功后即可使用。
+
+#### 提供的工具
+
+1. 查询可用的工作流：扫描 `mcp` 目录，并读取每个 `yml` 文件，返回所有工作流的名称和描述，直接给到 LLM/Agent。
+2. 提交生成任务：与 API 方式相同，响应直接返回给 LLM/Agent。
+3. 查询任务进度：与 API 方式有少许不同，在 MCP 方式下，会直接返回 ComfyUI 的下载链接，不再经过服务器转发。LLM/Agent 只得到下载链接，如果网络环境可以访问 ComfyUI 服务，即可直接下载，否则需对外暴露 ComfyUI 服务端口或启用转发服务。
+
+![图片展示、下载效果](doc/mcp_down.png)
 
 ## 工作流分享
 
