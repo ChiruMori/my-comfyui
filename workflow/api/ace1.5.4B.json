@@ -1,0 +1,144 @@
+{
+  "3": {
+    "class_type": "KSampler",
+    "inputs": {
+      "model": [
+        "78",
+        0
+      ],
+      "positive": [
+        "94",
+        0
+      ],
+      "negative": [
+        "47",
+        0
+      ],
+      "latent_image": [
+        "98",
+        0
+      ],
+      "seed": [
+        "102",
+        0
+      ],
+      "steps": 31,
+      "cfg": 12,
+      "sampler_name": "euler",
+      "scheduler": "simple",
+      "denoise": 1
+    }
+  },
+  "18": {
+    "class_type": "VAEDecodeAudio",
+    "inputs": {
+      "samples": [
+        "3",
+        0
+      ],
+      "vae": [
+        "106",
+        0
+      ]
+    }
+  },
+  "47": {
+    "class_type": "ConditioningZeroOut",
+    "inputs": {
+      "conditioning": [
+        "94",
+        0
+      ]
+    }
+  },
+  "78": {
+    "class_type": "ModelSamplingAuraFlow",
+    "inputs": {
+      "model": [
+        "104",
+        0
+      ],
+      "shift": 3
+    }
+  },
+  "94": {
+    "class_type": "TextEncodeAceStepAudio1.5",
+    "inputs": {
+      "clip": [
+        "105",
+        0
+      ],
+      "tags": "Mandopop, Urban Guofeng, Young Male Baritone, Clean vocals, Dry vocal mix, Forward vocals, 88BPM, 4/4 Quantized groove, Crisp Pipa, Modern R&B percussion, Pluck synths, Warm melodic bass, No heavy reverb, No long notes, No vibrato, Staccato delivery, Catchy hooks, Repetitive melody, Studio-Quality, Transparent mix, High-fidelity, Anti-melancholy, Rhythmic pop",
+      "lyrics": "[Intro: 8s]\n\n[Instrumental: Crisp Pipa plucking, Staccato rhythm]\n\n[Instrumental: Modern Trap-lite hi-hats, Sub-bass pulse]\n\n[Verse 1: 15s]\n\n[Vocal: Young Male Baritone, Clean, Conversational, Low intensity]\n\n[Instrumental: Minimalist Rhodes chords, Steady kick]\n轉角的 巷弄,\n開了家 旗袍鋪,\n像極了 妳 針綫裏 的 溫度.\n異鄉的 霜降,\n模糊了 舊地圖,\n我 停下 步子 却 找不到 歸路.\n\n[Verse: Main Theme: 30s]\n\n[Vocal: Catchy, Rhythmic, No vibrato, Staccato phrasing]\n\n[Instrumental: Full Band Entry, Strong 4/4 Beat, Pipa doubling melody]\n\n[Instrumental: Layered Pluck Synths, Deep Groove]\n一盞 舊燈火, 映著 妳 輪廓,\n這場 故鄉夢, 我 捨不得 破.\n看 幾番 秋色, 聽 幾聲 離合,\n唯有 妳的美, 依然 深刻.\n一盞 舊燈火, 映著 妳 輪廓,\n這場 故鄉夢, 我 捨不得 破.\n那 漫天 星斗, 像 妳的 溫柔,\n等我 這一回, 攜手 白頭.\n\n[Bridge: 10s]\n\n[Vocal: Spoken style, Half-whispered]\n\n[Instrumental: Drum and Bass only, Sudden silence of Pipa]\n城南 煙雨 重,\n相思 意 難平.\n\n[Verse: Main Theme: 30s]\n\n[Vocal: Same melody as previous theme, Confident, Melodic]\n\n[Instrumental: Maximum energy, Anthemic arrangement, High-fidelity]\n一盞 舊燈火, 映著 妳 輪廓,\n這場 故鄉夢, 我 捨不得 破.\n看 幾番 秋色, 聽 幾聲 離合,\n唯有 妳的美, 依然 深刻.\n一盞 舊燈火\n\n映著 妳 輪廓,\n這場 故鄉夢, 我 捨不得 破.\n那 漫天 星斗, 像 妳的 溫柔,\n(whispered, gently, stable)\n等我 這一回, 攜手 白頭.\n(vocal stop, staccato)\n\n[Outro: 5s]\n[Vocal: None, Pure Instrumental]\n[Instrumental: Pipa mimicking main melody hook, Gentle fade out, Fading]\n[End]",
+      "seed": [
+        "102",
+        0
+      ],
+      "bpm": 31,
+      "duration": [
+        "99",
+        0
+      ],
+      "timesignature": "fixed",
+      "language": "4",
+      "keyscale": "zh",
+      "generate_audio_codes": "A major",
+      "cfg_scale": true,
+      "temperature": 2,
+      "top_p": 0.48,
+      "top_k": 0,
+      "min_p": 0
+    }
+  },
+  "98": {
+    "class_type": "EmptyAceStep1.5LatentAudio",
+    "inputs": {
+      "seconds": [
+        "99",
+        0
+      ],
+      "batch_size": 192
+    }
+  },
+  "99": {
+    "class_type": "PrimitiveNode",
+    "inputs": {}
+  },
+  "102": {
+    "class_type": "PrimitiveNode",
+    "inputs": {}
+  },
+  "104": {
+    "class_type": "UNETLoader",
+    "inputs": {
+      "unet_name": "acestep_v1.5_turbo.safetensors",
+      "weight_dtype": "default"
+    }
+  },
+  "105": {
+    "class_type": "DualCLIPLoader",
+    "inputs": {
+      "clip_name1": "qwen_0.6b_ace15.safetensors",
+      "clip_name2": "qwen_4b_ace15.safetensors",
+      "type": "ace",
+      "device": "default"
+    }
+  },
+  "106": {
+    "class_type": "VAELoader",
+    "inputs": {
+      "vae_name": "ace_1.5_vae.safetensors"
+    }
+  },
+  "107": {
+    "class_type": "SaveAudioMP3",
+    "inputs": {
+      "audio": [
+        "18",
+        0
+      ],
+      "filename_prefix": "audio/ComfyUI",
+      "quality": "V0"
+    }
+  }
+}

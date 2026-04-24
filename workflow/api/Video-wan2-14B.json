@@ -1,0 +1,82 @@
+{
+  "97": {
+    "class_type": "LoadImage",
+    "inputs": {
+      "image": "ComfyUI_02361_.png [output]",
+      "upload": "image"
+    }
+  },
+  "108": {
+    "class_type": "SaveVideo",
+    "inputs": {
+      "video": [
+        "129",
+        0
+      ],
+      "filename_prefix": "video/Wan2.2_i2v",
+      "format": "auto",
+      "codec": "auto"
+    }
+  },
+  "129": {
+    "class_type": "84e2cf3f-de93-40ef-ab22-b9375296917b",
+    "inputs": {
+      "start_image": [
+        "97",
+        0
+      ],
+      "text": "The waves gently lapped against the shore, the sea surface shimmered with light, and clouds—dyed with color by the setting sun—drifted in the evening breeze. On the beach, a group of girls practiced playing rock music on keyboards, drums, cellos, and harmonicas, their blonde hair fluttering in the wind.",
+      "width": 1280,
+      "height": 720,
+      "length": 81,
+      "sampler_name": "euler",
+      "unet_name": "wan2.2_i2v_high_noise_14B_fp8_scaled.safetensors",
+      "unet_name_1": "wan2.2_i2v_low_noise_14B_fp8_scaled.safetensors",
+      "clip_name": "umt5_xxl_fp8_e4m3fn_scaled.safetensors",
+      "vae_name": "wan_2.1_vae.safetensors",
+      "lora_name": "wan2.2_i2v_lightx2v_4steps_lora_v1_high_noise.safetensors",
+      "lora_name_1": "wan2.2_i2v_lightx2v_4steps_lora_v1_low_noise.safetensors"
+    }
+  },
+  "134": {
+    "class_type": "Display Any (rgthree)",
+    "inputs": {
+      "source": [
+        "142",
+        0
+      ]
+    }
+  },
+  "141": {
+    "class_type": "Bjornulf_OllamaConfig",
+    "inputs": {
+      "ollama_url": "http://127.0.0.1:11434",
+      "model_name": "gpt-oss:20b"
+    }
+  },
+  "142": {
+    "class_type": "Bjornulf_OllamaTalk",
+    "inputs": {
+      "OLLAMA_CONFIG": [
+        "141",
+        0
+      ],
+      "user_prompt": [
+        "160",
+        0
+      ],
+      "seed": 17785774297071831924,
+      "max_tokens": 1024,
+      "vram_retention_minutes": 0,
+      "answer_single_line": "Resume"
+    }
+  },
+  "160": {
+    "class_type": "StringConcatenate",
+    "inputs": {
+      "string_a": "你是专业的英汉内容翻译师，用于将用户输入的任何内容直接翻译为英文；不要输出任何解释性文本，直接翻译要输入的内容本身，以下是要翻译的内容：",
+      "string_b": "夕阳照在海面波光粼粼；少女回头；微笑着，眨眼不说话",
+      "delimiter": ""
+    }
+  }
+}

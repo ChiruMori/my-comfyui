@@ -1,11 +1,7 @@
 import os
 from dataclasses import dataclass
 from pathlib import Path
-
-try:
-    from dotenv import load_dotenv
-except ImportError:
-    load_dotenv = None
+from dotenv import load_dotenv
 
 
 @dataclass
@@ -16,6 +12,7 @@ class Config:
     comfyui_workflows_dir: Path
     comfyui_models_dir: Path
     local_workflows_dir: Path
+    parsed_api_dir: Path
 
     def __init__(
         self,
@@ -23,11 +20,13 @@ class Config:
         comfyui_workflows_dir: Path,
         comfyui_models_dir: Path,
         local_workflows_dir: Path,
+        parsed_api_dir: Path,
     ):
         self.comfyui_base_dir = Path(comfyui_base_dir).expanduser().resolve()
         self.comfyui_workflows_dir = Path(comfyui_workflows_dir).expanduser().resolve()
         self.comfyui_models_dir = Path(comfyui_models_dir).expanduser().resolve()
         self.local_workflows_dir = Path(local_workflows_dir).expanduser().resolve()
+        self.parsed_api_dir = Path(parsed_api_dir).expanduser().resolve()
 
 
 def load_config(env_file: Path | str | None = None) -> Config:
@@ -87,11 +86,17 @@ def load_config(env_file: Path | str | None = None) -> Config:
         Path(os.getenv("LOCAL_WORKFLOWS_DIR", "workflow")).expanduser().resolve()
     )
 
+    # 获取解析后的 API 调用目录
+    parsed_api_dir = (
+        Path(os.getenv("PARSED_API_DIR", "parsed_api")).expanduser().resolve()
+    )
+
     return Config(
         comfyui_base_dir=comfyui_base,
         comfyui_workflows_dir=comfyui_workflows,
         comfyui_models_dir=comfyui_models,
         local_workflows_dir=local_workflows,
+        parsed_api_dir=parsed_api_dir,
     )
 
 

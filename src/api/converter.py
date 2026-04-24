@@ -1,7 +1,12 @@
 import json
 import random
+import os
+import re
+
+from pathlib import Path
 
 RANDOM_FIELDS = ["Seed", "Random Seed", "seed", "random_seed"]
+RANDOM_PLACEHOLDER = "{_SEED_}"
 
 
 def value_match_type(value, widget_type):
@@ -20,7 +25,7 @@ def convert_workflow_to_api(workflow, change_random=True):
 
     Args:
         workflow: 工作流 JSON文件内容
-        change_random: 是否改变随机数字段，默认 True
+        change_random: 是否将随机数字段替换为占位符，默认 True
     """
     # 输出为 JSON 格式
     result = {}
@@ -61,7 +66,7 @@ def convert_workflow_to_api(workflow, change_random=True):
                             continue
                         inputs[key] = widgets[wid_ind]
                         if change_random and key in RANDOM_FIELDS:
-                            inputs[key] = random.randint(0, 2**64 - 1)
+                            inputs[key] = RANDOM_PLACEHOLDER
                         wid_ind += 1
                         break
                 # 否则不写任何值（即移除该字段）
@@ -71,7 +76,8 @@ def convert_workflow_to_api(workflow, change_random=True):
         outputs = node.get("outputs", [])
         output_map[id] = [o.get("links", []) for o in outputs]
         for out in outputs:
-            degree_cnt += len(out.get("links", []))
+            outlink = out.get("links")
+            degree_cnt += outlink and len(outlink) or 0
         # 节点出入度为0（孤节点）的，删除
         if degree_cnt == 0:
             continue
@@ -89,6 +95,8 @@ def convert_workflow_to_api(workflow, change_random=True):
     for from_id, link_id_arrs in output_map.items():
         # 每个 linkId 都要找到其指向的节点
         for link_index, link_ids in enumerate(link_id_arrs):
+            if not link_ids:
+                continue
             # 每个 linkId 都要处理
             for link_id in link_ids:
                 # 根据保存的 LinkMap，找到要修改的对象和字段
@@ -98,6 +106,43 @@ def convert_workflow_to_api(workflow, change_random=True):
     # 4. 按节点 ID 顺序排序后，将键转为字符串类型后，返回结果
     result = dict(sorted(result.items()))
     return {str(k): v for k, v in result.items()}
+
+
+def prepare_api_workflow(
+    api_workflow_name: str, kwargs: dict, change_random: bool = True
+) -> str:
+    """
+    准备 API 工作流，替换占位符为实际值，始终基于字符串进行处理，不反解析为 JSON
+
+    Args:
+        api_workflow_name: API 工作流名称
+        kwargs: 替换占位符的参数字典
+        change_random: 是否将随机数字段替换为占位符，默认 True
+    """
+    api_wf_path = Path(os.getenv("PARSED_API_DIR", "")) / (api_workflow_name + ".json")
+    if not api_wf_path.exists():
+        raise FileNotFoundError(f"工作流 {api_workflow_name} 不存在")
+    api_wf = None
+    with open(api_wf_path, "r", encoding="utf-8") as f:
+        api_wf = f.read()
+    if not api_wf:
+        raise ValueError(f"工作流 {api_workflow_name} 内容为空")
+    # 首先根据 kwargs 替换占位符，{{key}}
+    for key, value in kwargs.items():
+        placeholder = f"{{{{{key}}}}}"
+        api_wf = api_wf.replace(placeholder, str(value))
+
+    # 如果需要改变随机数，则替换为新的随机数，循环替换，保证每个随机数都不同
+    if change_random:
+        while RANDOM_PLACEHOLDER in api_wf:
+            api_wf = api_wf.replace(
+                RANDOM_PLACEHOLDER, str(random.randint(0, 2**64 - 1)), 1
+            )
+    
+    # 去除 \n 及其后的多余空格，保证返回的字符串格式紧凑
+    api_wf = re.sub(r"\n\s{0,}", "", api_wf).strip()
+
+    return api_wf
 
 
 # 逐级验证转换是否符合预期
@@ -135,9 +180,7 @@ if __name__ == "__main__":
     with open(output_file, "r", encoding="utf-8") as f:
         expected_workflow = json.load(f)
         # 递归验证节点是否一致
-        if not compare_node(api_workflow, expected_workflow):
+        if not compare_node(expected_workflow, api_workflow):
             print("转换验证失败")
             exit(1)
         print("转换验证通过")
-
-# TODO: 启动一个转发服务，通过转换函数调用工作流

@@ -5,21 +5,29 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "调试当前程序",
+            "name": "当前程序",
             "type": "debugpy",
             "request": "launch",
             "program": "${file}",
             "console": "integratedTerminal"
         },
         {
-            "name": "调试主程序",
+            "name": "Server",
+            "type": "debugpy",
+            "request": "launch",
+            "module": "src.main",
+            "args": [
+                "server",
+            ]
+        },
+        {
+            "name": "主程序",
             "type": "debugpy",
             "request": "launch",
             "module": "src.main",
             "args": [
                 "workflow",
-                "info",
-                "语音克隆"
+                "export"
             ]
         }
     ]

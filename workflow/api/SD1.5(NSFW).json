@@ -1,0 +1,263 @@
+{
+  "3": {
+    "class_type": "KSampler",
+    "inputs": {
+      "model": [
+        "48",
+        0
+      ],
+      "positive": [
+        "17",
+        0
+      ],
+      "negative": [
+        "7",
+        0
+      ],
+      "latent_image": [
+        "5",
+        0
+      ],
+      "seed": 15169862103619796537,
+      "steps": 30,
+      "cfg": 7,
+      "sampler_name": "dpmpp_sde",
+      "scheduler": "karras",
+      "denoise": 0.6000000000000001
+    }
+  },
+  "5": {
+    "class_type": "EmptyLatentImage",
+    "inputs": {
+      "width": 512,
+      "height": 768,
+      "batch_size": 4
+    }
+  },
+  "7": {
+    "class_type": "CLIPTextEncode",
+    "inputs": {
+      "clip": [
+        "51",
+        1
+      ],
+      "text": [
+        "56",
+        1
+      ]
+    }
+  },
+  "8": {
+    "class_type": "VAEDecode",
+    "inputs": {
+      "samples": [
+        "3",
+        0
+      ],
+      "vae": [
+        "72",
+        0
+      ]
+    }
+  },
+  "9": {
+    "class_type": "SaveImage",
+    "inputs": {
+      "images": [
+        "8",
+        0
+      ],
+      "filename_prefix": "ComfyUI"
+    }
+  },
+  "16": {
+    "class_type": "OllamaGenerate",
+    "inputs": {
+      "prompt": [
+        "40",
+        0
+      ],
+      "debug": "\n\n",
+      "url": "enable",
+      "model": "http://127.0.0.1:11434",
+      "keep_alive": 5,
+      "format": "text"
+    }
+  },
+  "17": {
+    "class_type": "CLIPTextEncode",
+    "inputs": {
+      "clip": [
+        "48",
+        1
+      ],
+      "text": [
+        "56",
+        0
+      ]
+    }
+  },
+  "26": {
+    "class_type": "Display Any (rgthree)",
+    "inputs": {
+      "source": [
+        "56",
+        0
+      ]
+    }
+  },
+  "33": {
+    "class_type": "easy negative",
+    "inputs": {
+      "negative": "embedding:SD1.5\\ng_deepnegative_v1_75t, embedding:FastNegative, e, embedding:BadX-neg, realistic, mosaic, censored, audit, multiple grils, weird, weird color, incomplete body, two heads, robot, error, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality, normal quality, jpeg artifacts, signature, watermark, username, blurry, (worst quality, low quality:1.4), (bad anatomy), (inaccurate limb:1.2), bad composition, inaccurate eyes, extra digit,fewer digits, (extra arms:1.2), (bad-artist:0.6), bad-image-v2-39000"
+    }
+  },
+  "34": {
+    "class_type": "Display Any (rgthree)",
+    "inputs": {
+      "source": [
+        "56",
+        1
+      ]
+    }
+  },
+  "38": {
+    "class_type": "easy positive",
+    "inputs": {
+      "positive": "Suzuran 在公交车上，插着耳机听音乐，微笑着，看着镜头\n"
+    }
+  },
+  "40": {
+    "class_type": "easy promptConcat",
+    "inputs": {
+      "prompt1": [
+        "43",
+        0
+      ],
+      "prompt2": [
+        "38",
+        0
+      ],
+      "separator": " "
+    }
+  },
+  "43": {
+    "class_type": "easy positive",
+    "inputs": {
+      "positive": "接下来你的任务是生成描述图片的关键词列表，列表将作为提示词用于AIGC程序\n\n输出格式要求为英文关键字（词组）罗列，不要直接翻译；必须使用英文逗号分割，比如：word1, phrase, word2, short sentence, ...\n\n你作为自动程序的一部分，不要输出任何解释、说明、提醒、注意、markdown符号，以及任何其他符号，不要输出负面提示词\n\n本次要生成的画面描述如下：\n\n"
+    }
+  },
+  "48": {
+    "class_type": "LoraLoader",
+    "inputs": {
+      "model": [
+        "71",
+        0
+      ],
+      "clip": [
+        "71",
+        1
+      ],
+      "lora_name": "add-detail-xl.safetensors",
+      "strength_model": 0.7500000000000001,
+      "strength_clip": 0.7600000000000001
+    }
+  },
+  "49": {
+    "class_type": "easy positive",
+    "inputs": {
+      "positive": "Nahida_(Genshin_Impact), cute, 1 girl, kawaii, lovely, loli,"
+    }
+  },
+  "50": {
+    "class_type": "easy promptConcat",
+    "inputs": {
+      "prompt1": [
+        "49",
+        0
+      ],
+      "prompt2": [
+        "73",
+        0
+      ],
+      "separator": ", "
+    }
+  },
+  "51": {
+    "class_type": "CheckpointLoaderSimple",
+    "inputs": {
+      "ckpt_name": "cuteyukimixAdorable_kemiaomiao.safetensors"
+    }
+  },
+  "56": {
+    "class_type": "easy stylesSelector",
+    "inputs": {
+      "positive": [
+        "65",
+        0
+      ],
+      "negative": [
+        "33",
+        0
+      ],
+      "styles": "fooocus_styles"
+    }
+  },
+  "65": {
+    "class_type": "easy promptReplace",
+    "inputs": {
+      "prompt": [
+        "50",
+        0
+      ],
+      "find1": "Nahida_(Genshin_Impact)",
+      "replace1": "Suzuran_(Arknights)",
+      "find2": "nahida",
+      "replace2": "Suzuran",
+      "find3": "",
+      "replace3": ""
+    }
+  },
+  "68": {
+    "class_type": "easy positive",
+    "inputs": {
+      "positive": "Suzuran was on the bus, listening to music with earphones in, looking at the camera."
+    }
+  },
+  "71": {
+    "class_type": "LoraLoader",
+    "inputs": {
+      "model": [
+        "51",
+        0
+      ],
+      "clip": [
+        "51",
+        1
+      ],
+      "lora_name": "Better_detailed_pussy_and_anus_v3.0.safetensors",
+      "strength_model": 0.8500000000000002,
+      "strength_clip": 0.7600000000000001
+    }
+  },
+  "72": {
+    "class_type": "VAELoader",
+    "inputs": {
+      "vae_name": "anything-v4.0.vae.pt"
+    }
+  },
+  "73": {
+    "class_type": "easy textSwitch",
+    "inputs": {
+      "text1": [
+        "68",
+        0
+      ],
+      "text2": [
+        "16",
+        0
+      ],
+      "input": 1
+    }
+  }
+}

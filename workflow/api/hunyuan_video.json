@@ -1,0 +1,167 @@
+{
+  "8": {
+    "class_type": "VAEDecode",
+    "inputs": {
+      "samples": [
+        "13",
+        0
+      ],
+      "vae": [
+        "10",
+        0
+      ]
+    }
+  },
+  "10": {
+    "class_type": "VAELoader",
+    "inputs": {
+      "vae_name": "hunyuan_video_vae_bf16.safetensors"
+    }
+  },
+  "11": {
+    "class_type": "DualCLIPLoader",
+    "inputs": {
+      "clip_name1": "clip_l.safetensors",
+      "clip_name2": "llava_llama3_fp8_scaled.safetensors",
+      "type": "hunyuan_video",
+      "device": "default"
+    }
+  },
+  "12": {
+    "class_type": "UNETLoader",
+    "inputs": {
+      "unet_name": "hunyuan_video_t2v_720p_bf16.safetensors",
+      "weight_dtype": "default"
+    }
+  },
+  "13": {
+    "class_type": "SamplerCustomAdvanced",
+    "inputs": {
+      "noise": [
+        "25",
+        0
+      ],
+      "guider": [
+        "22",
+        0
+      ],
+      "sampler": [
+        "16",
+        0
+      ],
+      "sigmas": [
+        "17",
+        0
+      ],
+      "latent_image": [
+        "45",
+        0
+      ]
+    }
+  },
+  "16": {
+    "class_type": "KSamplerSelect",
+    "inputs": {
+      "sampler_name": "euler"
+    }
+  },
+  "17": {
+    "class_type": "BasicScheduler",
+    "inputs": {
+      "model": [
+        "12",
+        0
+      ],
+      "scheduler": "simple",
+      "steps": 20,
+      "denoise": 1
+    }
+  },
+  "22": {
+    "class_type": "BasicGuider",
+    "inputs": {
+      "model": [
+        "67",
+        0
+      ],
+      "conditioning": [
+        "26",
+        0
+      ]
+    }
+  },
+  "25": {
+    "class_type": "RandomNoise",
+    "inputs": {
+      "noise_seed": 368564761937981
+    }
+  },
+  "26": {
+    "class_type": "FluxGuidance",
+    "inputs": {
+      "conditioning": [
+        "44",
+        0
+      ],
+      "guidance": 6
+    }
+  },
+  "44": {
+    "class_type": "CLIPTextEncode",
+    "inputs": {
+      "clip": [
+        "11",
+        0
+      ],
+      "text": "anime style anime girl of 7 years old. She has white gradient single ponytail hair and green eyes. She wearing a white translucent dress walking in a beautiful outdoor scenery with snow mountains in the background"
+    }
+  },
+  "45": {
+    "class_type": "EmptyHunyuanLatentVideo",
+    "inputs": {
+      "width": 720,
+      "height": 480,
+      "length": 73,
+      "batch_size": 1
+    }
+  },
+  "67": {
+    "class_type": "ModelSamplingSD3",
+    "inputs": {
+      "model": [
+        "12",
+        0
+      ],
+      "shift": 7
+    }
+  },
+  "73": {
+    "class_type": "VAEDecodeTiled",
+    "inputs": {
+      "samples": [
+        "13",
+        0
+      ],
+      "vae": [
+        "10",
+        0
+      ],
+      "tile_size": 256,
+      "overlap": 64,
+      "temporal_size": 64,
+      "temporal_overlap": 8
+    }
+  },
+  "75": {
+    "class_type": "SaveAnimatedWEBP",
+    "inputs": {
+      "images": [
+        "73",
+        0
+      ],
+      "filename_prefix": "ComfyUI",
+      "fps": 16,
+      "lossless": "default"
+    }
+  }
+}

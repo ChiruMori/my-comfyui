@@ -1,6 +1,7 @@
+import os
 import click
 
-from src.config import Config, load_config, get_env_path
+from src.config import Config, load_config
 from src.manager.model import scan_model_files, find_unused_models, prompt_delete
 from src.manager.workflow import (
     list_workflows,
@@ -54,7 +55,7 @@ def workflow_list(ctx: click.Context, local: bool) -> None:
 )
 @click.pass_context
 def workflow_export(ctx: click.Context, dry_run: bool) -> None:
-    """导出所有本地工作流到本地目录"""
+    """导出所有ComfyUI工作流到本地目录"""
     config: Config = ctx.obj["config"]
 
     workflows = list_workflows(config.comfyui_workflows_dir)
@@ -68,7 +69,7 @@ def workflow_export(ctx: click.Context, dry_run: bool) -> None:
             click.echo(f"  {w.name}")
     else:
         copied = export_workflows(
-            config.comfyui_workflows_dir, config.local_workflows_dir
+            config.comfyui_workflows_dir, config.local_workflows_dir, config.parsed_api_dir
         )
         click.echo(f"\n已导出 {len(copied)} 个工作流到 {config.local_workflows_dir}")
 
@@ -128,7 +129,7 @@ def model() -> None:
 @click.option("--dry-run", "-n", is_flag=True, help="仅显示将要删除的模型，不实际删除")
 @click.pass_context
 def model_scan(ctx: click.Context, dry_run: bool) -> None:
-    """Scan for unused models and prompt to delete."""
+    """扫描所有模型文件，查找未被引用的模型，并提示删除"""
     config: Config = ctx.obj["config"]
 
     # 扫描所有模型文件
@@ -169,3 +170,22 @@ def model_scan(ctx: click.Context, dry_run: bool) -> None:
             return
 
         prompt_delete(unused)
+
+
+@cli.command("server")
+@click.option("--host", default="127.0.0.1", help="监听地址")
+@click.option("--port", "-p", default=8181, type=int, help="监听端口")
+@click.option(
+    "--comfyui-url",
+    default=None,
+    help="ComfyUI API 地址（默认 http://localhost:8181）",
+)
+@click.pass_context
+def server_command(ctx: click.Context, host: str, port: int, comfyui_url: str) -> None:
+    """启动 ComfyUI 代理服务器"""
+    if comfyui_url:
+        os.environ["COMFYUI_URL"] = comfyui_url
+    from src.api.server import app
+    import uvicorn
+
+    uvicorn.run(app, host=host, port=port)

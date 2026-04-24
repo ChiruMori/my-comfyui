@@ -1,0 +1,235 @@
+{
+  "3": {
+    "class_type": "KSampler",
+    "inputs": {
+      "model": [
+        "48",
+        0
+      ],
+      "positive": [
+        "17",
+        0
+      ],
+      "negative": [
+        "7",
+        0
+      ],
+      "latent_image": [
+        "5",
+        0
+      ],
+      "seed": 16332194652867344061,
+      "steps": 25,
+      "cfg": 7.5,
+      "sampler_name": "euler_ancestral",
+      "scheduler": "karras",
+      "denoise": 1
+    }
+  },
+  "4": {
+    "class_type": "CheckpointLoaderSimple",
+    "inputs": {
+      "ckpt_name": "realvisxlV50_v30TurboBakedvae.safetensors"
+    }
+  },
+  "5": {
+    "class_type": "EmptyLatentImage",
+    "inputs": {
+      "width": 640,
+      "height": 640,
+      "batch_size": 4
+    }
+  },
+  "7": {
+    "class_type": "CLIPTextEncode",
+    "inputs": {
+      "clip": [
+        "4",
+        1
+      ],
+      "text": [
+        "29",
+        1
+      ]
+    }
+  },
+  "8": {
+    "class_type": "VAEDecode",
+    "inputs": {
+      "samples": [
+        "3",
+        0
+      ],
+      "vae": [
+        "4",
+        2
+      ]
+    }
+  },
+  "9": {
+    "class_type": "SaveImage",
+    "inputs": {
+      "images": [
+        "8",
+        0
+      ],
+      "filename_prefix": "ComfyUI"
+    }
+  },
+  "16": {
+    "class_type": "OllamaGenerate",
+    "inputs": {
+      "prompt": [
+        "40",
+        0
+      ],
+      "debug": "\n\n",
+      "url": "enable",
+      "model": "http://127.0.0.1:11434",
+      "keep_alive": 5,
+      "format": "text"
+    }
+  },
+  "17": {
+    "class_type": "CLIPTextEncode",
+    "inputs": {
+      "clip": [
+        "48",
+        1
+      ],
+      "text": [
+        "29",
+        0
+      ]
+    }
+  },
+  "26": {
+    "class_type": "Display Any (rgthree)",
+    "inputs": {
+      "source": [
+        "29",
+        0
+      ]
+    }
+  },
+  "29": {
+    "class_type": "easy stylesSelector",
+    "inputs": {
+      "positive": [
+        "50",
+        0
+      ],
+      "negative": [
+        "33",
+        0
+      ],
+      "styles": "fooocus_styles"
+    }
+  },
+  "33": {
+    "class_type": "easy negative",
+    "inputs": {
+      "negative": "embedding:unaestheticXL_Sky3.1, embedding:BadX-neg, embedding:DeepNegative_xl_v1, weird, weird color, incomplete body, text, logo, "
+    }
+  },
+  "34": {
+    "class_type": "Display Any (rgthree)",
+    "inputs": {
+      "source": [
+        "29",
+        1
+      ]
+    }
+  },
+  "40": {
+    "class_type": "easy promptConcat",
+    "inputs": {
+      "prompt1": [
+        "43",
+        0
+      ],
+      "prompt2": [
+        "56",
+        0
+      ],
+      "separator": " "
+    }
+  },
+  "43": {
+    "class_type": "easy positive",
+    "inputs": {
+      "positive": "接下来你的任务是生成描述图片的关键词列表，列表将作为提示词用于AIGC程序\n\n你作为自动程序的一部分，不要输出任何解释、说明、提醒、注意、以及任何其他符号，不要输出负面提示词\n\n输出格式要求为英文关键字（词组）罗列；使用英文逗号分割，比如：sunrise, anime gril, smile, best quality, ...\n\n本次要生成的画面描述如下：\n\n"
+    }
+  },
+  "48": {
+    "class_type": "LoraLoader",
+    "inputs": {
+      "model": [
+        "4",
+        0
+      ],
+      "clip": [
+        "4",
+        1
+      ],
+      "lora_name": "add-detail-xl.safetensors",
+      "strength_model": 0.7500000000000001,
+      "strength_clip": 0.7500000000000001
+    }
+  },
+  "49": {
+    "class_type": "easy positive",
+    "inputs": {
+      "positive": "prostitution, cute, loli, light purple hair, double ahoge, double ponytail, navy blue uniform, white pleated skirt, red eyes, yellow hair accessories, masterpiece, best quality, amazing quality, 8k, "
+    }
+  },
+  "50": {
+    "class_type": "easy promptConcat",
+    "inputs": {
+      "prompt1": [
+        "57",
+        0
+      ],
+      "prompt2": [
+        "49",
+        0
+      ],
+      "separator": ", "
+    }
+  },
+  "55": {
+    "class_type": "Display Any (rgthree)",
+    "inputs": {
+      "source": [
+        "40",
+        0
+      ]
+    }
+  },
+  "56": {
+    "class_type": "easy positive",
+    "inputs": {
+      "positive": "后末日时代的夜晚，在人类的废墟遗迹，树木茂盛，月光映照在水面，一个女孩在其中探索"
+    }
+  },
+  "57": {
+    "class_type": "easy textSwitch",
+    "inputs": {
+      "text1": [
+        "16",
+        0
+      ],
+      "text2": [
+        "58",
+        0
+      ],
+      "input": 2
+    }
+  },
+  "58": {
+    "class_type": "easy positive",
+    "inputs": {
+      "positive": "Post-apocalyptic, Night, amidst the lush, tree-lined ruins of humanity, moonlight reflects on the water's surface, A girl explores."
+    }
+  }
+}

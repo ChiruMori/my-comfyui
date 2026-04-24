@@ -3,6 +3,7 @@ import shutil
 import re
 from pathlib import Path
 from typing import Any, Dict, List
+from src.api.converter import convert_workflow_to_api
 
 
 def list_workflows(workflows_dir: Path) -> List[Path]:
@@ -103,12 +104,13 @@ def parse_models(workflow_path: Path) -> List[str]:
     return list(set(models))
 
 
-def export_workflows(src_dir: Path, dest_dir: Path) -> List[str]:
-    """将指定目录下的所有工作流 JSON文件复制到本地目录
+def export_workflows(src_dir: Path, dest_dir: Path, parsed_api_dir: Path) -> List[str]:
+    """将指定目录下的所有ComfyUI工作流 JSON文件复制到本地目录，同时转换为 API 调用的所需格式
 
     Args:
         src_dir: 源目录路径（ComfyUI 工作流目录）
         dest_dir: 目标目录路径（本地工作流目录）
+        parsed_api_dir: 解析后的 API 调用目录路径（本地工作流目录）
 
     Returns:
         复制的文件名列表
@@ -117,12 +119,22 @@ def export_workflows(src_dir: Path, dest_dir: Path) -> List[str]:
         return []
 
     dest_dir.mkdir(parents=True, exist_ok=True)
+    parsed_api_dir.mkdir(parents=True, exist_ok=True)
     copied: List[str] = []
 
     for workflow_path in list_workflows(src_dir):
+        # 复制工作流 JSON文件到本地目录
         dest_path = dest_dir / workflow_path.name
         shutil.copy2(workflow_path, dest_path)
         copied.append(workflow_path.name)
+        # 解析工作流 JSON 文件，保存到 API 调用目录下
+        api_path = parsed_api_dir / workflow_path.name
+        with open(api_path, "w", encoding="utf-8") as f:
+            # 读取工作流 JSON 文件内容，解析为 API 调用格式后保存
+            with open(workflow_path, "r", encoding="utf-8") as wf:
+                workflow = json.load(wf)
+                prompt = convert_workflow_to_api(workflow)
+                f.write(json.dumps(prompt, ensure_ascii=False, indent=2))
 
     return copied
 

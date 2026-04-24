@@ -1,0 +1,60 @@
+{
+  "60": {
+    "class_type": "SaveImage",
+    "inputs": {
+      "images": [
+        "433",
+        0
+      ],
+      "filename_prefix": "ComfyUI"
+    }
+  },
+  "78": {
+    "class_type": "LoadImage",
+    "inputs": {
+      "image": "to_up.png",
+      "upload": "image"
+    }
+  },
+  "342": {
+    "class_type": "SaveImage",
+    "inputs": {
+      "images": [
+        "434",
+        0
+      ],
+      "filename_prefix": "ComfyUI"
+    }
+  },
+  "433": {
+    "class_type": "eba40a3a-f6c5-48ac-b58e-55525d06b373",
+    "inputs": {
+      "image": [
+        "78",
+        0
+      ],
+      "image2": [
+        "442",
+        0
+      ],
+      "prompt": ""
+    }
+  },
+  "434": {
+    "class_type": "090e935a-ca0d-4191-8f17-eba77774e4c2",
+    "inputs": {
+      "image": [
+        "78",
+        0
+      ],
+      "prompt": ""
+    }
+  },
+  "442": {
+    "class_type": "LoadImage",
+    "inputs": {
+      "image": "to_up.png",
+      "upload": "image"
+    }
+  }
+}

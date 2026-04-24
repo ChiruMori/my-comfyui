@@ -1,0 +1,171 @@
+{
+  "2": {
+    "class_type": "VAEEncodeForInpaint",
+    "inputs": {
+      "pixels": [
+        "4",
+        0
+      ],
+      "vae": [
+        "13",
+        2
+      ],
+      "mask": [
+        "20",
+        0
+      ],
+      "grow_mask_by": 6
+    }
+  },
+  "3": {
+    "class_type": "VAEDecode",
+    "inputs": {
+      "samples": [
+        "17",
+        0
+      ],
+      "vae": [
+        "13",
+        2
+      ]
+    }
+  },
+  "4": {
+    "class_type": "LoadImage",
+    "inputs": {
+      "image": "frame_00000514.png",
+      "upload": "image"
+    }
+  },
+  "5": {
+    "class_type": "WatermarkDetectorLoader",
+    "inputs": {
+      "model_type": "watermarks_detect_best",
+      "confidence": 0.5000000000000001,
+      "iou_threshold": 0.2
+    }
+  },
+  "6": {
+    "class_type": "WatermarkDetector",
+    "inputs": {
+      "watermark_model": [
+        "5",
+        0
+      ],
+      "images": [
+        "4",
+        0
+      ],
+      "resolution": "1920"
+    }
+  },
+  "7": {
+    "class_type": "Display Any (rgthree)",
+    "inputs": {
+      "source": [
+        "6",
+        2
+      ]
+    }
+  },
+  "9": {
+    "class_type": "SaveImage",
+    "inputs": {
+      "images": [
+        "3",
+        0
+      ],
+      "filename_prefix": "ComfyUI"
+    }
+  },
+  "10": {
+    "class_type": "MaskToImage",
+    "inputs": {
+      "mask": [
+        "20",
+        0
+      ]
+    }
+  },
+  "11": {
+    "class_type": "PreviewImage",
+    "inputs": {
+      "images": [
+        "10",
+        0
+      ]
+    }
+  },
+  "12": {
+    "class_type": "PreviewImage",
+    "inputs": {
+      "images": [
+        "6",
+        0
+      ]
+    }
+  },
+  "13": {
+    "class_type": "CheckpointLoaderSimple",
+    "inputs": {
+      "ckpt_name": "sd_xl_base_1.0_0.9vae.safetensors"
+    }
+  },
+  "16": {
+    "class_type": "CLIPTextEncode",
+    "inputs": {
+      "clip": [
+        "13",
+        1
+      ],
+      "text": "Watermark, text"
+    }
+  },
+  "17": {
+    "class_type": "KSampler",
+    "inputs": {
+      "model": [
+        "13",
+        0
+      ],
+      "positive": [
+        "18",
+        0
+      ],
+      "negative": [
+        "16",
+        0
+      ],
+      "latent_image": [
+        "2",
+        0
+      ],
+      "seed": 3351215168490018602,
+      "steps": 15,
+      "cfg": 5,
+      "sampler_name": "dpmpp_2m",
+      "scheduler": "beta",
+      "denoise": 1
+    }
+  },
+  "18": {
+    "class_type": "CLIPTextEncode",
+    "inputs": {
+      "clip": [
+        "13",
+        1
+      ],
+      "text": ""
+    }
+  },
+  "20": {
+    "class_type": "GrowMask",
+    "inputs": {
+      "mask": [
+        "6",
+        1
+      ],
+      "expand": 5
+    }
+  }
+}
